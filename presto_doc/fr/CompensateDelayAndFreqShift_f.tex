@@ -1,0 +1,78 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\FuncDef{[So]=CompensateDelayAndFreqShift(S,zeros,plotflag)}
+{\fitem[So] S enrichie d'information sur la compensation du retard et la
+  compl\'etion. Les donn\'ees de So sont compens\'ees.}
+{\fitem[S] Les donn\'ees qui doivent \^etre compens\'ees. Ces derni\`eres 
+doivent \^etre contenues dans les champs \texttt{freq} et \texttt{value} de S.
+\fitem[zeros=DVC.CDAFS.zeros\_at\_inf] Le nombre de z\'eros \`a l'infini pour
+$S_{1,2}$ et $S_{2,1}$. Cette information est utilis\'ee au moment du
+calcul de la compl\'etion.
+\fitem[plotflag=DVC.CDAFS.plot\_flag] Si \texttt{plotflag} est diff\'erent de 0 le
+r\'esultat est affich\'e dans une fen\^etre graphique}
+{\fitem[DVC.CDAFS.sign\_in\_zero\_trans\_12] Le shift en fr\'equence
+appliqu\'e \`a $S_{1,2}$ et $S_{2,1}$ est d\'efini \`a $\pi$
+pr\'es. Cette constante fixe le 
+signe de la partie imaginaire de $S_{1,2}$ en z\'eros (au point de
+fr\'equence le plus proche de z\'ero). Valeurs possibles \{-1,1\}.
+\fitem[DVC.CDAFS.delay\_range] Un ensemble de valeurs possibles pour les
+composantes de retard. Par exemple [-0.1:.001:0.1]. 
+\fitem[DVC.CDAFS.poly\_order] Degr\'e du polyn\^ome en $1/s$
+utilis\'e pour la compl\'etion.
+\fitem[DVC.CDAFS.omega\_lim] Correspond \`a $w_c$ dans la d\'efinition de
+l'intervalle $I$, voir (\ref{wc:def}). {\bf Important}: le cardinal de $I$ doit \^etre assez important pour que l'erreur d'approximation
+par des polyn\^omes de degr\'e fix\'e ait un sens, i.e
+$card(|w_k|>\mbox{\texttt{omega\_lim}}) \gg \mbox{\texttt{poly\_order}}$.
+\fitem[DVC.CDAFS.error\_lim] Si l'erreur d'approximation \`a
+compensation optimale est sup\'erieure \`a error\_lim alors un warning
+est envoy\'e vers la fen\^etre de commande.
+\fitem[DVC.CDAFS.causal\_bound(1,1)] Correspond \`a $E_c$ dans le
+programme d'optimisation \ref{compl:optim1} et concerne la compl\'etion de 
+la voie (1,1). Ici cette borne est exprim\'ee en pourcentage de la norme $L^2$ des donn\'ees. 
+\fitem[DVC.CDAFS.causal\_bound(2,2)] M\^eme chose mais pour la voie (2,2).
+\fitem[DVC.CDAFS.modulus\_factor(1,1)] La contrainte sur le module de la 
+compl\'etion est exprim\'ee ici de la mani\`ere suivante: $\mbox{\texttt{modulus\_factor}} * max_{w}(|S_{1,1}|)$.
+\fitem[DVC.CDAFS.modulus\_factor(2,2)] M\^eme chose que pr\'ec\'edemment
+mais pour $S_{2,2}$.
+\fitem[DVC.CDAFS.number\_of\_control\_points] Nombre de points de
+contr\^ole utilis\'es pour la contrainte en module. Ce nombre devra \^etre
+choisi en fonction de \texttt{DVC.CDAFS.poly\_order} (de bons r\'esultats sont
+observ\'es pour $\mbox{\texttt{number\_of\_control\_points}} \geq 5*\mbox{\texttt{poly\_order}}$).
+\fitem[DVC.CDAFS.number\_of\_fourier\_coeffs] Nombre de coefficients de Fourier
+utilis\'es pour estimer la partie instable des donn\'ees.
+\fitem[DVC.CDAFS.iso\_flag] Permet une variation sur la norme pour
+l'approximation. Pas d\'ecrit en d\'etail ici.}
+{}
+Rend effectif les algorithmes de compensation et de compl\'etion explicit\'es aux sections \ref{sec:detret},\ref{sec:comp},\ref{sec:shift}.
+
+
+     
+

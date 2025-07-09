@@ -1,0 +1,44 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\FuncDef{[S]=AllSteps(S,n,zeros\_at\_inf,solver\_flag,plot\_flag)}
+{\fitem[S] S enrichie par les \'etapes de compensation-compl\'etion,
+  de calcul coefficients de Fourier de la phase d'approximation rationnelle}
+{\fitem[S] Structure contenant les donn\'ees passe-bas 
+\fitem[n] Degr\'e de MacMillan cible
+\fitem[zeros\_at\_inf=DVC.AS.zeros\_at\_inf] Nombre de z\'eros \`a l'infini pour la compl\'etion
+des voies (1,2) et (2,1)
+\fitem[solver\_flag=DVC.AS.solver\_flag] Type de moteur utilis\'e par l'approximation
+rationnelle. Valeurs possibles \{'RARL2','HARL2'\}
+\fitem[plot\_flag=DVC.AS.plot\_flag] Visualisation ou non des r\'esultats. Valeurs
+possibles \{0,1\}}
+{}%  
+{Encha\^ine les proc\'edures CompensateDelayAndFreqShift,
+  CompFourierCoeffs et RatApp.}

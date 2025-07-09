@@ -1,0 +1,3 @@
+Fabien Seyfert <fabien.seyfert@inria.fr>
+Jean-Paul Marmorat <jean-paul.marmorat@minesparis.psl.eu>
+Martine Olivi <martine.olivi@inria.fr>

@@ -1,0 +1,41 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\FuncDef{[So]=CompFourierCoeffs(Si)}
+{\fitem[So] Si enrichie des coefficients de Fourier de chaque voie}
+{\fitem[Si] Structure de donn\'ees avec informations sur la compl\'etion}
+{\fitem[DVC.CFC.n\_Fourier] Nombre de coefficients. de Fourier \`a calculer 
+\fitem[DVC.CFC.n\_comp] Nombre de points utilis\'es pour \'evaluer la compl\'etion
+\fitem[DVC.CFC.n\_spline] Nombre de points utilis\'es pour l'\'evaluation
+des int\'egrales de Fourier.}
+{La proc\'edure calcule des coefficients de Fourier d'indice positif et
+n\'egatif. Les coefficients d'indice positif seront utilis\'es lors de la
+phase d'approximation rationnelle, ceux d'indice n\'egatif servent \`a
+calculer la norme de la partie instable des donn\'ees compl\'et\'ees.}

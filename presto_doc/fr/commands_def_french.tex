@@ -1,0 +1,74 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\usepackage{ifthen}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\newcommand{\fitem}{\protect\item}
+\newcommand\testempty[3]{\def\xtoto{#1}\ifx\xtoto\empty #2\else#3\fi}
+\newcommand{\entrieslabel}[1]{\texttt{#1}:\vspace{0.5em} \hfill}
+\newenvironment{entry}[0]
+{\begin{list}{}%
+    { \renewcommand{\makelabel}{\entrieslabel}%
+      \setlength{\labelwidth}{4em}%
+      \setlength{\labelsep}{0.3em}%
+      \setlength{\parsep}{0em}%
+      \setlength{\itemsep}{0em}%
+      \setlength{\leftmargin}{4.5em}%
+      \setlength{\topsep}{0em}%
+    }%
+}%
+{\end{list}}
+\newcommand{\FuncDef}[5]{
+{\bf Signature }\texttt{#1} \\
+{\bf Sortie(s)}
+\testempty{#2}{ aucune \\}{
+\begin{entry}
+#2
+\end{entry}
+}
+{\bf Entr\'ee(s)}
+\testempty{#3}{ aucune \\}{
+\begin{entry}
+#3
+\end{entry}
+}
+{\bf Constante(s)}
+\testempty{#4}{ aucune \\}{
+\begin{entry}
+#4
+\end{entry}
+}
+{\bf Description}
+\testempty{#5}{ none \\}{\\#5\\}
+}
+
+
+

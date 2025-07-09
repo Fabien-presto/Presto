@@ -1,0 +1,45 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\FuncDef{[So]=CompFourierCoeffs(Si)}
+{\fitem[So] Si enriched with the Fourier coefficients of each channel}
+{\fitem[Si] S-structure for which completion to infty exists}
+{\fitem[DVC.CFC.n\_Fourier] Number of Fourier coefficients to be computed
+\fitem[DVC.CFC.n\_comp] Number of points taken in completion evaluation
+\fitem[DVC.CFC.n\_spline] Number of points taken after splines
+(interpolating data and completion) have been
+computed. Those evaluation points are used in the to evaluate integrals for Fourier
+coeffs. computation.
+}
+{The procedure computes positive and negative indexed Fourier
+  coefficients. The positive ones are added to the S-structure, the
+  negative ones are used to compute the ``distance'' to causality
+  see [\ref{Comp}].
+}

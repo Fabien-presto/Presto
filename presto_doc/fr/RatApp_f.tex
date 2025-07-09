@@ -1,0 +1,41 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\FuncDef{[SS]=RatApp(S,n,Is\_type,solver)}
+{\fitem[SS] S enrichie par les num\'erateurs et d\'enominateur du mod\`ele rationnel}
+{\fitem[S] Structure de donn\'ees pour laquelle les coefficients de Fourier
+ont d\'eca \'et\'e calcul\'es. 
+\fitem[n] Degr\'e de MacMillan cible}
+{\fitem[Is\_type=DVC.RA.divide\_by\_z\_minus\_one] Information sur le type
+d'isom\'etrie utilis\'ee pour passer au cercle. Pas d\'ecrit ici en d\'etail.
+\fitem[solver=DVC.RA.solver\_flag] Sp\'ecifie quel moteur d'approximation
+rationnel doit \^etre utilis\'e: RARL2 ou hyperion. Valeurs possibles \{'RARL2','HARL2'\}}  
+{Le moteur hyperion n'est disponible que sous Linux. }
+ 

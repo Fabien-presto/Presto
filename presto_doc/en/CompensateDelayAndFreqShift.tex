@@ -1,0 +1,132 @@
+% This file is part of Presto-HF, a matlab toolbox to identify a circuit from
+% its response.
+%
+% SPDX-License-Identifier: AGPL-3.0-or-later
+%
+% Copyright 2025 by
+%   Centre Inria de l'Université Côte d'Azur
+%   2004, route des Lucioles
+%   06902 Sophia Antipolis Cedex
+%
+% and by
+%   Mines Paris - Armines
+%   60, boulevard Saint-Michel
+%   75006 Paris
+%
+% Contributors: Fabien Seyfert, Jean-Paul Marmorat, Martine Olivi
+%
+% Presto-HF is free software: you can redistribute it and/or modify it under
+% the terms of the GNU Affero General Public License as published by the Free
+% Software Foundation, either version 3 of the License, or (at your option) any
+% later version.
+%
+% Presto-HF is distributed in the hope that it will be useful, but WITHOUT ANY
+% WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+% A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+% details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
+%
+\label{Comp}
+\FuncDef{[So]=CompensateDelayAndFreqShift(S,zeros,plotflag)}
+{\fitem[So] S enriched with informations about completion and
+compensation. The frequency data of So are compensated}
+{%
+\fitem[S] The mesured data to be compensated, contained in the fields
+{\it freq} and {\it value} of the S-strucutre S.
+\fitem[zeros=DVC.CDAFS.zeros\_at\_inf] Number of zeros at infty for
+$S_{1,2}$ and $S_{2,1}$. This information is used during the computation of 
+a completion for those elements.
+\fitem[plotflag=DVC.CDAFS.plot\_flag] If plotflag is diff of 0 the
+result is ploted}
+{%
+\fitem[DVC.CDAFS.sign\_in\_zero\_trans\_12] The constant frequency shift applied to
+$S_{1,2}$ and $S_{2,1}$ is defined up to $\pi$. This constant fixes the
+sign of the imaginary part of $S_{1,2}$ at the zero frequency (at the
+measurment point nearest to zeros). Poss. values \{-1,1\}. {\bf
+Important}: the identified coupling matrices corresponding to those
+nomalizations can be deduced from one an other by a change of sign of
+certain couplings.   
+\fitem[DVC.CDAFS.delay\_range] Range of possible delay compensation to
+be considered. 
+\fitem[DVC.CDAFS.poly\_order] Degree of the $1/s$ polynomial used to
+compute completion.
+\fitem[DVC.CDAFS.omega\_lim] For $|w|>w_{lim}$ the $1/s$ polynomial
+defining the completion, should fit the data as good as possible. In
+other words the users believes that for $|w|>w_{lim}$ a $1/s$ expansion
+of degree DVC.CDAFS.poly\_order is a good approximation of the frequency 
+behaviour of the filter. {\bf Important}: the number of selected data
+points should be enough so that a meaningfull approximation can be
+computed, i.e $card(|w_k|>w_{lim})>>poly\_order$.
+\fitem[DVC.CDAFS.error\_lim] If the error between the data (with best
+compensation) and the $1/s$ expansion (on the data points with $|w|>w\_lim$) 
+is greater than error\_lim a warning message is released.
+\fitem[DVC.CDAFS.causal\_bound(1,1)] Bound for the distance to causal
+systems for the completion of $S_{1,1}$. This bound is expressed in
+percent.
+\fitem[DVC.CDAFS.causal\_bound(2,2)] Same as prev. but for $S_{2,2}$.
+\fitem[DVC.CDAFS.modulus\_factor(1,1)] The modulus of the completion is
+controled so as to be less than: $modulus\_factor * max_{w}(|S_{1,1}|)$.
+\fitem[DVC.CDAFS.modulus\_factor(2,2)] Same as prev. but for $S_{2,2}$.
+\fitem[DVC.CDAFS.number\_of\_control\_points] Number of (equaly spaced
+on the sub-arc of the unit circle where the completion is defined) control points used to control the modulus of the completion. This number should be choosen
+in regards of DVC.CDAFS.poly\_order (good results seems to be obtained
+with $number\_of\_control\_points \geq 5*.poly\_order$).
+\fitem[DVC.CDAFS.number\_of\_fourier\_coeffs] Number of Fourier
+coeffs. used to estimate non-causal part of completed data.
+\fitem[DVC.CDAFS.iso\_flag] Indicates which kind of isometry is used
+when passing to the disk to evaluate the non-causal part of completed
+data. Possibilities are $L^{\infty}$ or $L^2$ isometry which are
+obtained resp. for the values \{0,1\} of the flag.   
+}
+{
+The function proceeds roughly in three steps: first the delay components
+of $S_{1,1}$ and $S_{2,2}$ are estimated and compensated, then completions are
+determined for all entries and finally constant frequency shifts are
+applied so as to ensure $Imag(S_{1,1})=Imag(S_{2,2})=0$. A frequency
+shifts on the diagonal terms is also estimated by using the hypothesis
+that in the ideal case the system is lossless.   
+\\
+{\bf Delay determination:}
+For $S_{1,1}$ and $S_{2,2}$ the delay component is estimated in the
+following way. Let $K=\{k,\,|w_k|>w_{lim}$ the selected measurement
+points. Given $\tau \in [delay\_range]$ we define 
+$$ \psi(\tau)=\min_{(a_0,a_1...) \in \Bbb{C}^{poly\_order+1}} \sum_{k\in K}
+|S_{1,1}(w_k)e^{i\tau w_k} - \sum_{l=0}^{poly\_order}
+\frac{a_l}{(w_k)^l}|^2.
+$$ The 'optimal' delay compensation $\tau_{opt}$ is defined by, 
+$$\psi(\tau_{opt})=\min_{\tau \in [delay\_range]} \psi(\tau) $$       
+
+{\bf Completions:}
+We recall that $I_2$ and $I_{\infty}$ are respectively the $L^2$ and
+$L^{\infty}$ isometries definied as in \ref{isom}. Let $p$ be a
+polynomial defining a possible completion of the measured data we denote 
+by $S_{i,j} \vee p$ the extended function defined on the whole imaginary axes 
+(note that between two measurement points, $S_{i,j}$ is defined by
+spline interpolation, so that it can be considered as a function on the
+interval $[\min(w_i),\max(w_i)]$). The constrained optimisation problem
+we adress to determine a completion of our data (for $iso\_flag=0$) is the following:
+\begin{align*}
+& !\min_{p \in \Bbb{C}^{poly\_order}[x]}\sum_{k \in
+K}|S_{i,j}(w_k)-p(\frac{1}{w_k})|^2 \\
+\intertext{under the following constraints}
+& ||P_{H^2_0}(I_{\infty}(S_{i,j}) \vee p)||_2 \leq ||I_{\infty}(S_{i,j})||_2
+.causal\_bound(i,j) \\
+&\forall w \in [control\_points] \quad|p(\frac{1}{w_c})| \leq
+modulus\_factor(i,j).\max_k(|S_{i,j}(w_k)|) 
+\end{align*}
+If there is no element $p$ satisfying those constraints then the
+following relaxed problem is solved,
+\begin{align*}
+& !\min_{p \in \Bbb{C}^{poly\_order}[x]}  ||P_{H^2_0}(I_{\infty}(S_{i,j}) \vee p)||_2^2 
+\intertext{under the following constraint}
+&\forall w \in [control\_points] \quad |p(\frac{1}{w_c})| \leq
+modulus\_factor(i,j).\max_k(|S_{i,j}(w_k)|) 
+\end{align*}
+for which $p=0$ is a feasable point. For $iso\_flag=1$ the $L^2$ isometry 
+is used instead (the value at infinity is substracted, so as to ensure
+that $S_{i,j} \vee p - p_0$ is $L^2$ integrable).
+}
+     
+
