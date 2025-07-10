@@ -28,7 +28,7 @@
 % You should have received a copy of the GNU Affero General Public License
 % along with Presto-HF. If not, see <https://www.gnu.org/licenses/>.
 %
-function DVC=ParamsFor8cavity_dual_mode_filter()
+function DVC=Params_for_eight_cavity_dual_mode_filter()
 % Returns a parameter structure containing Default values and Constants values for all Presto methods 
 % For a global change of those values you can edit the file PrestoDefaultValuesAndConstants.m
 % For a local overloading of those values define a 'params' field for your S structure

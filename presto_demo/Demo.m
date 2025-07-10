@@ -37,24 +37,24 @@ addpath([DemoDir,'presto']);
 % Init presto (sets a bunch of paths)
 PrestoInit;
 
-% Loads the data (the data are after that in a structure called 8cavity_dual_mode_filter)
-8cavity_dual_mode_filter=ParseS('8cavity_dual_mode_filter.txt');
+% Loads the data (the data are after that in a structure called eight_cavity_dual_mode_filter)
+eight_cavity_dual_mode_filter=ParseS('eight_cavity_dual_mode_filter.txt');
 
 % Plot the nyquist plot of data
-PlotS(8cavity_dual_mode_filter);
+PlotS(eight_cavity_dual_mode_filter);
 RaiseAndDraw;
 
 % Plot the bode plot of data
-PlotS(8cavity_dual_mode_filter,'b');
+PlotS(eight_cavity_dual_mode_filter,'b');
 RaiseAndDraw;
 
-% Indicates in the 8cavity_dual_mode_filter structure where to take special parameter
+% Indicates in the eight_cavity_dual_mode_filter structure where to take special parameter
 % value. This is only necessary if one wants to use different parameters
 % as the default ones.
-8cavity_dual_mode_filter.params=@ParamsFor8cavity_dual_mode_filter
+eight_cavity_dual_mode_filter.params=@Params_for_eight_cavity_dual_mode_filter
 
 % Compensate delays and freq shift - compute completion at infinity
-Sr=CompensateDelayAndFreqShift(8cavity_dual_mode_filter,8);
+Sr=CompensateDelayAndFreqShift(eight_cavity_dual_mode_filter,8);
 
 % Plot the result
 PlotS(Sr);
@@ -72,7 +72,7 @@ Sr=RatApp(Sr,8,1)
 PlotS(Sr);
 RaiseAndDraw;
 
-% All those steps can be called by one command by: Sr=AllSteps(8cavity_dual_mode_filter,8)
+% All those steps can be called by one command by: Sr=AllSteps(eight_cavity_dual_mode_filter,8)
 
 
 % Compute the extended coupling matrix, the classical coupiling matrix, and the input/output loads of Sr
